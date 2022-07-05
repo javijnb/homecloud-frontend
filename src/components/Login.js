@@ -35,10 +35,19 @@ export default function SignInSide() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('username'),
-      password: data.get('password'),
-    });
+    var username = data.get('username');
+    var password = data.get('password');
+    const url = "http://localhost:9000/authenticate"
+    const body = {
+      "username" : username,
+      "password" : password 
+    }
+    fetch(url, {
+      Method: 'POST',
+      Body: body,
+    }).then(function(response){
+      console.log(response)
+    })
   };
 
   return (
