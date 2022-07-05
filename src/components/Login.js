@@ -38,8 +38,6 @@ export default function SignInSide() {
     var username = data.get('username');
     var password = data.get('password');
 
-    console.log(username, password)
-
     const url = "http://localhost:9000/authenticate"
     var body = {
       "username": username,
@@ -52,7 +50,15 @@ export default function SignInSide() {
       body: JSON.stringify(body),
 
     }).then(response => response.json())
-      .then(jsondata => console.log(jsondata))
+      .then(jsondata => {
+        if(jsondata.success === "true"){
+          // Guardar token
+          // Navegar a la siguiente página
+        }
+
+        // Error autenticando
+
+      })
   };
 
   return (
