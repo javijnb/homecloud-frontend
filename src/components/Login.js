@@ -37,17 +37,22 @@ export default function SignInSide() {
     const data = new FormData(event.currentTarget);
     var username = data.get('username');
     var password = data.get('password');
+
+    console.log(username, password)
+
     const url = "http://localhost:9000/authenticate"
-    const body = {
-      "username" : username,
-      "password" : password 
+    var body = {
+      "username": username,
+      "password": password 
     }
+
     fetch(url, {
-      Method: 'POST',
-      Body: body,
-    }).then(function(response){
-      console.log(response)
-    })
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(body),
+
+    }).then(response => response.json())
+      .then(jsondata => console.log(jsondata))
   };
 
   return (
