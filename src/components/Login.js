@@ -12,7 +12,8 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import backgroundLogo from '../images/logo.png'
+import backgroundLogo from '../images/logo.png';
+import Swal from 'sweetalert2'
 
 function Copyright(props) {
   return (
@@ -51,13 +52,18 @@ export default function SignInSide() {
 
     }).then(response => response.json())
       .then(jsondata => {
-        if(jsondata.success === "true"){
-          // Guardar token
+        console.log(jsondata)
+        if(jsondata.success === true){
+          sessionStorage.setItem("token", jsondata.access_token)
           // Navegar a la siguiente página
+        }else{
+          Swal.fire({
+            title: 'Error!',
+            text: 'Contraseña o usuario incorrectos',
+            icon: 'error',
+            confirmButtonText: 'Cool'
+          })
         }
-
-        // Error autenticando
-
       })
   };
 
@@ -116,6 +122,7 @@ export default function SignInSide() {
                 id="password"
                 autoComplete="current-password"
               />
+              
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Recordar credenciales de inicio de sesión"
