@@ -54,8 +54,10 @@ export default function SignInSide() {
       .then(jsondata => {
         console.log(jsondata)
         if(jsondata.success === true){
-          sessionStorage.setItem("token", jsondata.access_token)
+          storeToken(jsondata.access_token)
+
           // Navegar a la siguiente página
+          
         }else{
           Swal.fire({
             title: 'Error!',
@@ -143,4 +145,8 @@ export default function SignInSide() {
       </Grid>
     </ThemeProvider>
   );
+}
+
+export function storeToken(token){
+  sessionStorage.setItem("token", token);
 }
